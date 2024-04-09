@@ -53,7 +53,7 @@ public class PuzzleSolverTests
     public void Can_take_reset_properly()
     {
         IPuzzleSolver<int> puzzleSolver = new PuzzleSolver<int>();
-        
+
         var nums = new List<int>();
         for (var i = 1; i <= 100; i++) nums.Add(i);
         puzzleSolver.Solve(nums);
@@ -63,5 +63,22 @@ public class PuzzleSolverTests
         for (var i = 1; i <= 100; i++) nums1.Add(i);
         puzzleSolver.Solve(nums1);
         Assert.Equal(73, puzzleSolver.FinalData);
+    }
+
+    [Fact]
+    public void Can_throw_exception_if_input_is_null()
+    {
+        IPuzzleSolver<int> puzzleSolver = new PuzzleSolver<int>();
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+        Assert.Throws<ArgumentNullException>(() => puzzleSolver.Solve(null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+    }
+
+    [Fact]
+    public void Can_throw_exception_if_input_is_empty()
+    {
+        var nums = new List<int>();
+        IPuzzleSolver<int> puzzleSolver = new PuzzleSolver<int>();
+        Assert.Throws<ArgumentNullException>(() => puzzleSolver.Solve(nums));
     }
 }
