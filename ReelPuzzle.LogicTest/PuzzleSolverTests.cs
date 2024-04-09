@@ -48,4 +48,20 @@ public class PuzzleSolverTests
 
         Assert.Equal(expectedOutput, puzzleSolver.FinalData);
     }
+
+    [Fact]
+    public void Can_take_reset_properly()
+    {
+        IPuzzleSolver<int> puzzleSolver = new PuzzleSolver<int>();
+        
+        var nums = new List<int>();
+        for (var i = 1; i <= 100; i++) nums.Add(i);
+        puzzleSolver.Solve(nums);
+        Assert.Equal(73, puzzleSolver.FinalData);
+
+        var nums1 = new List<int>();
+        for (var i = 1; i <= 100; i++) nums1.Add(i);
+        puzzleSolver.Solve(nums1);
+        Assert.Equal(73, puzzleSolver.FinalData);
+    }
 }
