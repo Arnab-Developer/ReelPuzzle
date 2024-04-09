@@ -1,10 +1,13 @@
-﻿namespace ReelPuzzle.Logic;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ReelPuzzle.Logic;
 
 public class PuzzleSolver<T> : IPuzzleSolver<T>
 {
     private bool _canTake;
     private T? _finalData;
 
+    [DisallowNull]
     public T? FinalData
     {
         get
@@ -24,9 +27,14 @@ public class PuzzleSolver<T> : IPuzzleSolver<T>
 
     public void Solve(List<T> nums)
     {
+        if (nums is null || nums.Count == 0)
+        {
+            throw new ArgumentNullException(nameof(nums));
+        }
+
         if (nums.Count == 1)
         {
-            FinalData = nums[0];
+            FinalData = nums[0] ?? throw new ArgumentNullException(nameof(nums));
             ResetCanTake();
             return;
         }
